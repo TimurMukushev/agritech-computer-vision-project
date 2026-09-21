@@ -1,0 +1,50 @@
+{% extends "diagnosis/base.html" %}
+{% block title %}Диагностика{% endblock %}
+{% block content %}
+<div class="max-w-6xl mx-auto px-6 pt-32 pb-24">
+    <h1 class="font-serif text-3xl md:text-4xl mb-10">Загрузите фото листа</h1>
+
+    <div class="grid md:grid-cols-2 gap-10">
+        <div>
+            <label class="block text-sm font-medium mb-2">Фотография растения</label>
+            <input type="file" id="imageInput" accept="image/*"
+                   class="block w-full text-sm border border-[#cdd6cd] rounded-md p-2 bg-white">
+            <button onclick="diagnose()"
+                    class="mt-4 bg-moss text-white font-medium px-6 py-3 rounded-md hover:bg-forest transition-colors">
+                Диагностировать
+            </button>
+        </div>
+
+        <div id="result" class="hidden bg-white border border-[#e2e7de] rounded-lg p-6"></div>
+    </div>
+</div>
+
+<script>
+async function diagnose() {
+    const input = document.getElementById("imageInput");
+    const resultDiv = document.getElementById("result");
+
+    if (!input.files.length) {
+        alert("Выберите файл!");
+        return;
+    }
+
+    resultDiv.classList.remove("hidden");
+    resultDiv.innerHTML = '<p class="text-[#5b6b60]">Анализируем...</p>';
+
+    const formData = new FormData();
+    formData.append("image", input.files[0]);
+
+    const response = await fetch("/diagnose/", { method: "POST", body: formData });
+    const data = await response.json();
+
+    resultDiv.innerHTML = `
+        <h3 class="font-serif text-2xl mb-3">${data.disease_name || data.class_name}</h3>
+        <p class="text-sm text-moss mb-4">Уверенность: ${(data.confidence * 100).toFixed(1)}%</p>
+        <p class="text-sm mb-3"><b>Описание:</b> ${data.description || ""}</p>
+        <p class="text-sm mb-3"><b>Лечение:</b> ${data.treatment || ""}</p>
+        <p class="text-sm"><b>Срок лечения:</b> ${data.duration || ""}</p>
+    `;
+}
+</script>
+{% endblock %}

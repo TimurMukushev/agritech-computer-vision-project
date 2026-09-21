@@ -1,0 +1,18 @@
+{% extends "diagnosis/auth_base.html" %}
+{% block title %}Вход{% endblock %}
+{% block form_content %}
+<h1 class="font-serif text-3xl mb-1">Вход</h1>
+<p class="text-sm text-[#5b6b60] mb-6">Продолжите работу с SanaLab</p>
+
+<form method="post" class="styled-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="w-full bg-moss text-white font-medium py-3 rounded-lg hover:bg-forest transition-colors">
+        Войти
+    </button>
+</form>
+
+<p class="text-sm text-[#5b6b60] mt-5">
+    Нет аккаунта? <a href="{% url 'register' %}" class="text-moss hover:underline">Зарегистрироваться</a>
+</p>
+{% endblock %}

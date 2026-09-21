@@ -1,0 +1,84 @@
+{% extends "diagnosis/base.html" %}
+{% load static %}
+{% block title %}SanaLab — Диагностика растений{% endblock %}
+
+{% block content %}
+
+<section class="relative h-screen min-h-[600px] flex items-end">
+    <img src="{% static 'diagnosis/images/hero.jpg' %}" alt=""
+         class="absolute inset-0 w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-t from-forest via-forest/50 to-transparent"></div>
+
+    <div class="relative max-w-6xl mx-auto px-6 pb-24 hero-fade">
+        <h1 class="font-serif text-4xl md:text-6xl text-white leading-tight max-w-2xl">
+            Цифровое решение заболеваний культурных растений
+        </h1>
+        <p class="text-sage/90 text-lg mt-6 max-w-lg">
+            Загрузите фото вашего культурного растения — искусственный интеллект определит болезнь и подберёт лечение.
+        </p>
+        <a href="{% if user.is_authenticated %}{% url 'diagnose_page' %}{% else %}{% url 'login' %}{% endif %}"
+           class="inline-block mt-8 bg-wheat text-forest font-medium px-7 py-3 rounded-md hover:bg-white transition-colors">
+            Диагностировать
+        </a>
+    </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-16 items-start">
+    <div>
+        <div class="font-serif text-7xl text-moss leading-none">40%</div>
+        <p class="text-sm text-[#5b6b60] mt-3 max-w-xs">
+            урожая теряется в мире ежегодно из-за вредителей и болезней растений, по оценке ФАО ООН.
+        </p>
+    </div>
+    <div class="text-[#33443a] leading-relaxed">
+        <p class="mb-4">
+            Болезни, вирусы, бактерии и грибки распространяются быстро, а на ранней стадии их легко спутать
+            между собой или не заметить вовсе. Ошибка в диагностике стоит фермеру части урожая.
+        </p>
+        <p>
+            При этом нанять штатного агронома может позволить себе далеко не каждое хозяйство — особенно
+            небольшое. В результате решения о лечении часто принимаются на глаз, без точного диагноза.
+        </p>
+    </div>
+</section>
+
+<section class="bg-forest text-sage py-24">
+    <div class="max-w-6xl mx-auto px-6">
+        <h2 class="font-serif text-3xl md:text-4xl max-w-xl">
+            Мы в SanaLab считаем, что точная диагностика должна быть доступна любому хозяйству
+        </h2>
+        <p class="text-sage/80 mt-6 max-w-2xl leading-relaxed">
+            Мы разработали решение на основе компьютерного зрения, которое по одной фотографии листа
+            определяет заболевание и подсказывает, чем и как его лечить — без необходимости держать
+            агронома в штате.
+        </p>
+
+        <div class="flex flex-col md:flex-row mt-16 gap-10 md:gap-0">
+            <div class="md:w-1/3 md:pr-10">
+                <div class="font-serif text-3xl text-wheat">1</div>
+                <div class="font-medium mt-2">Сфотографируйте лист</div>
+                <p class="text-sm text-sage/70 mt-2">Сделайте фото поражённого или подозрительного участка растения.</p>
+            </div>
+            <div class="md:w-1/3 md:px-10 md:border-l md:border-sage/20">
+                <div class="font-serif text-3xl text-wheat">2</div>
+                <div class="font-medium mt-2">Модель проанализирует снимок</div>
+                <p class="text-sm text-sage/70 mt-2">Компьютерное зрение определит культуру и вероятное заболевание.</p>
+            </div>
+            <div class="md:w-1/3 md:pl-10 md:border-l md:border-sage/20">
+                <div class="font-serif text-3xl text-wheat">3</div>
+                <div class="font-medium mt-2">Получите рекомендацию</div>
+                <p class="text-sm text-sage/70 mt-2">Описание болезни, чем лечить и сколько времени это займёт.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-wheat text-forest text-center py-20 px-6">
+    <h2 class="font-serif text-3xl md:text-4xl">Загрузите фотографию и определите заболевание растения</h2>
+    <a href="{% if user.is_authenticated %}{% url 'diagnose_page' %}{% else %}{% url 'login' %}{% endif %}"
+       class="inline-block mt-7 bg-forest text-sage font-medium px-7 py-3 rounded-md hover:bg-[#0f1c15] transition-colors">
+        Диагностировать
+    </a>
+</section>
+
+{% endblock %}

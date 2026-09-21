@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}SanaLab{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { forest: '#16281F', moss: '#3F6B4A', wheat: '#D9A441', sage: '#F1F3EC' },
+                    fontFamily: { serif: ['Fraunces', 'serif'], sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .styled-form input {
+            width: 100%;
+            padding: 0.65rem 0.9rem;
+            margin-top: 0.35rem;
+            margin-bottom: 1.1rem;
+            border: 1px solid #dde3da;
+            border-radius: 0.5rem;
+            background: #fff;
+        }
+        .styled-form input:focus { outline: 2px solid #3F6B4A; outline-offset: 1px; }
+        .styled-form label { font-size: 0.875rem; font-weight: 500; color: #1C2B22; }
+    </style>
+</head>
+<body class="font-sans">
+    <div class="flex h-screen">
+        <div class="hidden md:flex w-2/5 bg-gradient-to-br from-forest to-[#0b140f] relative p-10">
+            <a href="{% url 'home' %}" class="absolute top-10 left-10 flex items-center gap-2 text-sage font-serif text-xl">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22C12 22 4 17 4 9C4 5 7 2 12 2C17 2 20 5 20 9C20 17 12 22 12 22Z" stroke="#D9A441" stroke-width="1.5"/>
+                    <path d="M12 22V9" stroke="#D9A441" stroke-width="1.5"/>
+                </svg>
+                SanaLab
+            </a>
+            <p class="absolute bottom-10 left-10 right-10 font-serif italic text-2xl text-sage/90 leading-snug">
+                «Здоровый урожай начинается с точного диагноза»
+            </p>
+        </div>
+
+        <div class="flex-1 bg-sage flex items-center justify-center px-6">
+            <div class="w-full max-w-sm bg-white rounded-2xl shadow-sm p-10">
+                {% block form_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
